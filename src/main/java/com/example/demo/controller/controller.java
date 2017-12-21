@@ -46,5 +46,17 @@ public class controller {
         return str;
     }
 
+    @RequestMapping(value="/insert",method= RequestMethod.GET)
+    @ResponseBody
+    public String fourthRest(){
+        List<user> list = service.getAllUsers();
+        for(int i=0;i<list.size();i++){
+            list.get(i).setFirstName(list.get(i).getFirstName()+"m");
+            list.get(i).setLastName(list.get(i).getLastName()+"k");
+        }
+        service.insertUsersInBulk(list);
+        return "success";
+    }
+
 
 }

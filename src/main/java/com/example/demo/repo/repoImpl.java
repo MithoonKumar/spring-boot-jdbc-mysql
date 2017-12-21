@@ -2,12 +2,14 @@ package com.example.demo.repo;
 
 import com.example.demo.model.user;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,5 +61,21 @@ public class repoImpl extends JdbcDaoSupport implements repoInt {
         }
 
         return result;
+    }
+
+    public void insertUsersInBulk(List<user> list) {
+        String sql = "INSERT INTO fullName " + "(firstName, lastName) VALUES (?, ?)";
+        getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                user employee = list.get(i);
+                ps.setString(1, employee.getFirstName());
+                ps.setString(2, employee.getLastName());
+            }
+
+            public int getBatchSize() {
+                return list.size();
+            }
+        });
+
     }
 }

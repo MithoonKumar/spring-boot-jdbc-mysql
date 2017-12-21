@@ -23,5 +23,9 @@ public class serviceImpl implements serviceInt{
     public List<user> getAllUsers(){
         return repo.getAllUser();
     }
+
+    public void insertUsersInBulk(List<user> list){
+        repo.insertUsersInBulk(list);
+    }
 }
 
