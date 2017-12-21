@@ -13,5 +13,9 @@ public class serviceImpl implements serviceInt{
     public user findUser(String name){
         return repo.getUserById(name);
     }
+
+    public void addUser(user tempUser) {
+        repo.addUser(tempUser);
+    }
 }
 

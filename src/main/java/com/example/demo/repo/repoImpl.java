@@ -34,4 +34,12 @@ public class repoImpl extends JdbcDaoSupport implements repoInt {
             }
         });
     }
+
+    public void addUser(user tempUser) {
+        String sql = "INSERT INTO fullName " +
+                "(firstName, lastName) VALUES (?, ?)" ;
+        getJdbcTemplate().update(sql, new Object[]{
+                tempUser.getFirstName(), tempUser.getLastName()
+        });
+    }
 }

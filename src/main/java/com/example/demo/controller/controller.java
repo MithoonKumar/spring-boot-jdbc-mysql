@@ -22,5 +22,14 @@ public class controller {
         return service.findUser(name).getLastName();
     }
 
+    @RequestMapping(value="/{firstName}/{lastName}",method= RequestMethod.GET)
+    @ResponseBody
+    public String secondRest(@PathVariable String firstName,@PathVariable String lastName){
+        user tempUser = new user();
+        tempUser.setFirstName(firstName);
+        tempUser.setLastName(lastName);
+        service.addUser(tempUser);
+        return "success";
+    }
 
 }
