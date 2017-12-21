@@ -10,6 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class repoImpl extends JdbcDaoSupport implements repoInt {
@@ -41,5 +44,20 @@ public class repoImpl extends JdbcDaoSupport implements repoInt {
         getJdbcTemplate().update(sql, new Object[]{
                 tempUser.getFirstName(), tempUser.getLastName()
         });
+    }
+
+    public List<user> getAllUser(){
+        String sql = "SELECT * FROM fullName";
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+
+        List<user> result = new ArrayList<user>();
+        for(Map<String, Object> row:rows){
+            user tempUser = new user();
+            tempUser.setFirstName((String)row.get("firstName"));
+            tempUser.setLastName((String)row.get("lastName"));
+            result.add(tempUser);
+        }
+
+        return result;
     }
 }

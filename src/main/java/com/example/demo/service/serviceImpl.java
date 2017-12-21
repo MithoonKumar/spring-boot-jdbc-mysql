@@ -5,6 +5,8 @@ import com.example.demo.repo.repoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class serviceImpl implements serviceInt{
 
@@ -16,6 +18,10 @@ public class serviceImpl implements serviceInt{
 
     public void addUser(user tempUser) {
         repo.addUser(tempUser);
+    }
+
+    public List<user> getAllUsers(){
+        return repo.getAllUser();
     }
 }
 
